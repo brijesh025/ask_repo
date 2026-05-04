@@ -1,0 +1,17 @@
+1.NextJS:
+    ->Next.js is a React framework for building full-stack web applications.
+    ->React is a JS library, not a framework.
+        - react need to setup routings manually using third parties like react-router.
+        - Next.js has built in routing system, so we don't need to setup routing manually, 
+        there is a next module installed in next.js which is used for routing.
+        - that next module contains it's own code, it's own logic to handle routing, so we don't need to worry about it, 
+        we just need to use it.
+2.Next Commands:
+    1. to create nextJs project: npx create-next-app@latest my-next-app
+
+3.Git Commands:
+    1. to set oringin: git remote add origin <repository-url>
+    2. to push code: git push -u origin main
+    3. to set upstreaming: git push --set-upstream origin main
+    4. git fetch: git fetch origin main / git fetch upstream main
+         ----> this just download the laatest branch codes do not modify any file, use to compare the code
