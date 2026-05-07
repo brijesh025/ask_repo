@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/home/HeroSection";
-import { BottomSection } from "@/components/home/BottomSection";
 
 export default function Home() {
   return (
@@ -15,7 +14,6 @@ export default function Home() {
       <main className="mx-auto min-h-screen max-w-[1440px] border-x border-zinc-800 bg-[#111111]">
         <Navbar />
         <HeroSection />
-        <BottomSection />
       </main>
     </div>
   );
