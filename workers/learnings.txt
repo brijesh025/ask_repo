@@ -1,0 +1,77 @@
+worker/
+│
+├── cmd/
+│   └── worker/
+│       └── main.go
+│
+├── internal/
+│   ├── github/
+│   ├── ingest/
+│   ├── chunk/
+│   ├── embed/
+│   ├── storage/
+│   ├── search/
+│   ├── models/
+│   ├── config/
+│   └── utils/
+│
+├── tmp/
+├── go.mod
+└── go.sum
+
+WHY? ------------->
+  cmd: This directory contains the main entry point of the application. It is where the main.go file is located, which is the starting point of the worker application.
+       it performs: 
+        load config,
+        initialize DB,
+        initialize services,
+        start indexing pipeline.
+
+  internal: This directory contains the core logic and functionality of the worker application. It is organized into subdirectories based on different components or 
+    features of the application, such as github, ingest, chunk, embed, storage, search, models, config, and utils. Each subdirectory contains code related to its specific
+    functionality.
+
+    1.github:clone repo,
+            fetch branches,
+            validate repo,
+            GitHub API calls later.
+
+    2.ingest: recursive file scanning,
+            ignore rules,
+            language detection,
+            extracting clean files.
+
+    3.chunk: chunking logic,
+            line tracking,
+            metadata generation.
+
+    4.embed: embedding API calls,
+            embedding batching,
+            vector prepration
+    
+    5.storage: saving chunks,
+            retrieving chunks,
+            saving embeddings,
+            repository metadata,
+            retrieval quesries
+    
+    6.search: search logic,
+            vector search,
+            semantic retrieval,
+            ranking
+
+    7.models: shared data structures,
+            database models
+
+    8.config: DB URL,
+            embedding API keys,
+            temp directories
+    
+    9.utils:reusable helpers,
+            file helpers,
+            hash generation,
+            logging utilities
+  tmp: Temporary cloned repositories.
+
+
+            
