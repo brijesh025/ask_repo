@@ -1,0 +1,8 @@
+env: "dev"
+
+database: 
+  url: "postgres://askrepo:askrepo@localhost:5432/askrepo?sslmode=disable"
+
+http_server:
+  address: "localhost:3000"
+  timeout: 10s

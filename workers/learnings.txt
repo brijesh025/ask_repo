@@ -1,3 +1,16 @@
+## Comparison of structure between Node and Go implementations:
+Node.js                         Go
+------------------------------------------------
+server.js / app.js              cmd/api/main.go or cmd/main.go
+express.Router()                http.ServeMux / chi / gin router
+routes/*.js                     internal/http/routes.go
+controllers/*.js                internal/http/handlers.go
+services/*.js                   internal/github, internal/search, etc.
+models/*.js                     internal/models
+db.js                           internal/storage
+.env config                     internal/config
+
+-------------------------------------------------------------Worker Directory Structure---------------------------------------------------
 worker/
 │
 ├── cmd/
@@ -74,4 +87,32 @@ WHY? ------------->
   tmp: Temporary cloned repositories.
 
 
-            
+----------------------------------------------------------------Postgress SQL Database----------------------------------------------------------
+  Set Up:
+    1. Install PostgreSQL on your local machine or use a cloud-based PostgreSQL service.
+    2. Create a new database named "askrepo".
+    3. Create a new user named "askrepo" with password "askrepo" and grant all privileges on the "askrepo" database.
+
+    SQL Commands:
+    CREATE DATABASE askrepo;
+    CREATE USER askrepo WITH PASSWORD 'askrepo';
+    GRANT ALL PRIVILEGES ON DATABASE askrepo TO askrepo;
+
+    --------> Local setup:
+                Using Docker: 
+                        docker run --name askrepo-postgres `
+                        -e POSTGRES_USER=askrepo `
+                        -e POSTGRES_PASSWORD=askrepo123 `
+                        -e POSTGRES_DB=askrepo `
+                        -p 5432:5432 `
+                        -d postgres:16
+                ->To check if the container is running:
+                        docker ps
+                ->To stop the container:
+                        docker stop askrepo-postgres
+                ->To remove the container:
+                        docker rm askrepo-postgres
+                ->To start the container again:
+                        docker start askrepo-postgres
+                ->After running the above command, you can connect to the PostgreSQL database using the following connection string:
+                        DATABASE_URL=postgres://askrepo:askrepo123@localhost:5432/askrepo?sslmode=disable
