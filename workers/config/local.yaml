@@ -1,7 +1,7 @@
 env: "dev"
 
 database: 
-  url: "postgres://askrepo:askrepo@localhost:5432/askrepo?sslmode=disable"
+  url: "postgres://askrepo:Passit%401234@localhost:5432/askrepo?sslmode=disable"
 
 http_server:
   address: "localhost:3000"

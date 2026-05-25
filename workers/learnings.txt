@@ -106,13 +106,16 @@ WHY? ------------->
                         -e POSTGRES_DB=askrepo `
                         -p 5432:5432 `
                         -d postgres:16
-                ->To check if the container is running:
-                        docker ps
-                ->To stop the container:
-                        docker stop askrepo-postgres
-                ->To remove the container:
-                        docker rm askrepo-postgres
-                ->To start the container again:
-                        docker start askrepo-postgres
-                ->After running the above command, you can connect to the PostgreSQL database using the following connection string:
-                        DATABASE_URL=postgres://askrepo:askrepo123@localhost:5432/askrepo?sslmode=disable
+                ->To check if the container is running: docker ps
+                ->To stop the container: docker stop askrepo-postgres
+                ->To remove the container: docker rm askrepo-postgres
+                ->To start the container again: docker start askrepo-postgres
+                ->After running the above command, you can connect to the PostgreSQL database using the following connection string: DATABASE_URL=postgres://askrepo:askrepo123@localhost:5432/askrepo?sslmode=disable
+                -> to connect to the database using psql: docker exec -it askrepo-postgress psql -U askrepo -d askrepo
+                     ==>MEANING:docker: use Docker
+                                exec: run a command inside a running container
+                                -it: make it interactive
+                                askrepo-postgress: container name
+                                psql: command to run inside container
+                                -U askrepo: PostgreSQL username
+                                -d askrepo: PostgreSQL database name
