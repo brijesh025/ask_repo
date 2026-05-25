@@ -1,0 +1,25 @@
+---------------------------------------------------------------Java script Basics---------------------------------------------------
+A.Diffrence betweeen Node and JS: 
+    Node:
+
+
+    JS:
+        -> javascript : programming lang
+        -> javascript is used to make website interactive || made to run inside browser
+
+B.Diffrence between library and framework:
+
+Backend folder architrecture:
+    a.Routes:
+    b.Controllers:
+    c.Middlewares:
+    d.DB_Configuration
+    e.Models 
+
+-------------------------------------------------------------Express--------------------------------------------------------
+
+
+-------------------------------------------------------------Commands-----------------------------------------------------
+1. to intialise package.json: npm init -y
+
+
