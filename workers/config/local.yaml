@@ -3,6 +3,9 @@ env: "dev"
 database: 
   url: "postgres://askrepo:Passit%401234@localhost:5432/askrepo?sslmode=disable"
 
+local_storage:
+  path: "E:/Working/AskRepo_Data/Repos"
+
 http_server:
   address: "localhost:3000"
   timeout: 10s

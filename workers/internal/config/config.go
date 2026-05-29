@@ -17,12 +17,16 @@ type HTTPServer struct {
 type Database struct {
 	URL string `yaml:"url" env:"DATABASE_URL" env-required:"true"`
 }
-
+type LocalStorage struct {
+	Path string `yaml:"path"`
+}
 type Config struct {
 	Env        string     `yaml:"env" env:"ENV" env-default:"production"`
 	Database   Database   `yaml:"database"`
 	HTTPServer HTTPServer `yaml:"http_server"`
+	LocalStorage LocalStorage  `yaml:"local_storage"`   
 }
+
 
 func MustLoad() *Config {
 	configPath := os.Getenv("CONFIG_PATH")

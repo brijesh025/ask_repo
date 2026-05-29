@@ -11,9 +11,16 @@ db.js                           internal/storage
 .env config                     internal/config
 
 -------------------------------------------------------------Worker Directory Structure---------------------------------------------------
+## In GO we name the folder name as package name, so we can have a single package name for the files under one folder to avoid confusion and make it easier to
+        import and use the code across the application.
+## main.go is the entry point of the application, it will be responsible for initializing the application, loading configuration, setting up database 
+        connections, and starting the worker process.
+
 worker/
 │
 ├── cmd/
+│   |── api/
+│   |    └── main.go
 │   └── worker/
 │       └── main.go
 │

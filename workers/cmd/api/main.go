@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/brijesh025/ask_repo/internal/config"
+	httproutes "github.com/brijesh025/ask_repo/internal/http/routes"
 	"github.com/brijesh025/ask_repo/internal/storage"
 	"github.com/joho/godotenv"
 )
@@ -31,10 +32,8 @@ func main() {
 
 	// setup router
 	router := http.NewServeMux()
-	router.Handle("GET /", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Print("Welcome to HomePage")
-		w.Write([]byte("Welcome to AskRepo API"))
-	}))
+	httproutes.Register(router, cnfg)
+
 	// setup HTTP server
 	server := http.Server{
 		Addr:    cnfg.HTTPServer.Address,
