@@ -20,7 +20,7 @@ func main() {
 	cnfg := config.MustLoad()
 
 	// load DB
-	cntx := context.Background()
+	cntx := context.Background() /*req.Context() for http routes*/
 
 	store, err := storage.NewPostgres(cntx, cnfg.Database.URL)
 	if err != nil {
@@ -39,7 +39,7 @@ func main() {
 		Addr:    cnfg.HTTPServer.Address,
 		Handler: router,
 	}
-	slog.Info("Server Started", slog.String("address", cnfg.HTTPServer.Address))
+	slog.Info("Server Started", slog.String("address", server.Addr))
 	err = server.ListenAndServe()
 	if err != nil {
 		log.Fatalf("failed to start server: %s", err)

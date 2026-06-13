@@ -126,3 +126,29 @@ WHY? ------------->
                                 psql: command to run inside container
                                 -U askrepo: PostgreSQL username
                                 -d askrepo: PostgreSQL database name
+
+
+------------> PostgreSQL syntax:
+        1. use three DB methods.
+                a. Exec: for executing SQL commands that do not return rows, such as INSERT, UPDATE, DELETE, CREATE TABLE, etc.
+                        example: db.Exec("INSERT INTO repositories (name, url) VALUES ($1, $2)", repo.Name, repo.URL) --> s.DB.Exec(ctx, query, args...)
+                b. Query: for executing SQL commands that return multiple rows, such as SELECT.
+                                example: db.Query("SELECT id, name FROM repositories") --> s.DB.Query(ctx, query, args...)
+                c. QueryRow: for executing SQL commands that return a single row, such as SELECT with a WHERE clause that matches only one record.
+                                example: db.QueryRow("SELECT id FROM repositories WHERE name = $1", repo.Name) --> s.DB.QueryRow(ctx, query, args...)
+
+------------> Database Schema:
+                        tables:
+                                repositories: id, repo_url, name, local_path, created_at, indexed_at
+                                repo_files: id, repository_id,file_name, file_path, language,content_hash, size_bytes, created_at
+                                code_chunks: id, repository_id, file_id, file_path, chunk_text, start_line, end_line, embedding, created_at
+
+---------------------------------------------------Go Syntax and Concepts---------------------------------------------------
+1.Package Declaration: Every Go file starts with a package declaration. The package name is typically the same as the
+        directory name. For example, if you have a file in the "github" directory, it would start with "package github".
+2.Pointers: In go to pass by reference we declare arguments as pointer type using * before the type, and while calling 
+        the function we pass the address of the variable using & before the variable name. This allows the function
+        to modify the original variable's value.
+3.Context: Context is used to manage deadlines, cancellation signals, and other request-scoped values across API boundaries
+         and between processes. It is commonly used in database operations, HTTP requests, and other long-running operations
+          to allow for graceful cancellation and timeout handling.
