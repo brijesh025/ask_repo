@@ -29,10 +29,13 @@ func main() {
 	defer store.Close()
 
 	log.Printf("connected to postgres successfully")
+	if err := store.EnsureSchema(cntx); err != nil {
+		log.Fatalf("failed to ensure database schema: %s", err)
+	}
 
 	// setup router
 	router := http.NewServeMux()
-	httproutes.Register(router, cnfg)
+	httproutes.Register(router, store)
 
 	// setup HTTP server
 	server := http.Server{
