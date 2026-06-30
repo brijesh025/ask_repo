@@ -5,8 +5,10 @@ import (
 	"log"
 	"log/slog"
 	"net/http"
+	"os"
 
 	"github.com/brijesh025/ask_repo/internal/config"
+	"github.com/brijesh025/ask_repo/internal/embed"
 	httproutes "github.com/brijesh025/ask_repo/internal/http/routes"
 	"github.com/brijesh025/ask_repo/internal/storage"
 	"github.com/joho/godotenv"
@@ -33,9 +35,11 @@ func main() {
 		log.Fatalf("failed to ensure database schema: %s", err)
 	}
 
+	embedder := embed.NewOpenAIEmbedder(os.Getenv("OPENAI_API_KEY"), cnfg.Embedding.Model)
+
 	// setup router
 	router := http.NewServeMux()
-	httproutes.Register(router, store)
+	httproutes.Register(router, store, embedder)
 
 	// setup HTTP server
 	server := http.Server{

@@ -1,13 +1,13 @@
-package ingest
+package services
 
 import (
 	"path/filepath"
 	"strings"
 )
 
-const maxFileSizeBytes int64 = 1024 * 1024
+const MaxFileSizeBytes int64 = 1024 * 1024
 
-var ignoredDirs = map[string]bool{
+var IgnoredDirs = map[string]bool{
 	".git":         true,
 	".next":        true,
 	".turbo":       true,
@@ -21,7 +21,7 @@ var ignoredDirs = map[string]bool{
 	"__pycache__":  true,
 }
 
-var ignoredFileNames = map[string]bool{
+var IgnoredFileNames = map[string]bool{
 	".env":              true,
 	".env.local":        true,
 	"package-lock.json": true,
@@ -30,12 +30,12 @@ var ignoredFileNames = map[string]bool{
 	"go.sum":            true,
 }
 
-var allowedFileNames = map[string]string{
+var AllowedFileNames = map[string]string{
 	"Dockerfile": "dockerfile",
 	"Makefile":   "makefile",
 }
 
-var languageByExtension = map[string]string{
+var LanguageByExtension = map[string]string{
 	".c":    "c",
 	".cpp":  "cpp",
 	".css":  "css",
@@ -57,23 +57,23 @@ var languageByExtension = map[string]string{
 	".yml":  "yaml",
 }
 
-func isIgnoredDir(name string) bool {
-	return ignoredDirs[name]
+func IsIgnoredDir(name string) bool {
+	return IgnoredDirs[name]
 }
 
-func isIgnoredFile(name string) bool {
-	return ignoredFileNames[name]
+func IsIgnoredFile(name string) bool {
+	return IgnoredFileNames[name]
 }
 
-func languageForFile(name string) string {
-	if language, ok := allowedFileNames[name]; ok {
+func LanguageForFile(name string) string {
+	if language, ok := AllowedFileNames[name]; ok {
 		return language
 	}
 
 	ext := strings.ToLower(filepath.Ext(name))
-	return languageByExtension[ext]
+	return LanguageByExtension[ext]
 }
 
-func isAllowedSourceFile(name string) bool {
-	return languageForFile(name) != ""
+func IsAllowedSourceFile(name string) bool {
+	return LanguageForFile(name) != ""
 }
