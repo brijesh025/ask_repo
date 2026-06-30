@@ -20,13 +20,18 @@ type Database struct {
 type LocalStorage struct {
 	Path string `yaml:"path"`
 }
-type Config struct {
-	Env        string     `yaml:"env" env:"ENV" env-default:"production"`
-	Database   Database   `yaml:"database"`
-	HTTPServer HTTPServer `yaml:"http_server"`
-	LocalStorage LocalStorage  `yaml:"local_storage"`   
+
+type Embedding struct {
+	Model string `yaml:"model" env:"EMBEDDING_MODEL" env-default:"text-embedding-3-small"`
 }
 
+type Config struct {
+	Env          string       `yaml:"env" env:"ENV" env-default:"production"`
+	Database     Database     `yaml:"database"`
+	HTTPServer   HTTPServer   `yaml:"http_server"`
+	LocalStorage LocalStorage `yaml:"local_storage"`
+	Embedding    Embedding    `yaml:"embedding"`
+}
 
 func MustLoad() *Config {
 	configPath := os.Getenv("CONFIG_PATH")

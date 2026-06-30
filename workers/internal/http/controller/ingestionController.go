@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/brijesh025/ask_repo/internal/embed"
 	"github.com/brijesh025/ask_repo/internal/ingest"
 	"github.com/brijesh025/ask_repo/internal/models"
 	"github.com/brijesh025/ask_repo/internal/storage"
@@ -21,12 +22,17 @@ type ingestRepoResponse struct {
 	RepositoryID int64  `json:"repository_id"`
 	Files        int    `json:"files"`
 	Chunks       int    `json:"chunks"`
+	Embeddings   int    `json:"embeddings"`
 }
 
-func IngestRepo(store *storage.Storage) http.HandlerFunc {
+func IngestRepoController(store *storage.Storage, embedder embed.Embedder) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
 		if store == nil {
 			writeJSONError(res, http.StatusInternalServerError, "storage is not configured")
+			return
+		}
+		if embedder == nil {
+			writeJSONError(res, http.StatusInternalServerError, "embedder is not configured")
 			return
 		}
 
@@ -46,8 +52,9 @@ func IngestRepo(store *storage.Storage) http.HandlerFunc {
 			writeJSONError(res, http.StatusBadRequest, "local_path is required")
 			return
 		}
+		
 
-		service := ingest.NewService(store)
+		service := ingest.NewService(store, embedder)
 		result, err := service.IngestRepo(req.Context(), models.Repository{
 			RepoURL:   repoURL,
 			Name:      strings.TrimSpace(reqBody.Name),
@@ -63,6 +70,7 @@ func IngestRepo(store *storage.Storage) http.HandlerFunc {
 			RepositoryID: result.RepositoryID,
 			Files:        result.Files,
 			Chunks:       result.Chunks,
+			Embeddings:   result.Embeddings,
 		})
 	}
 }

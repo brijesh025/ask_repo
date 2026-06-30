@@ -28,7 +28,7 @@ type cloneRepoResponse struct {
 }
 
 
-func CloneRepo(res http.ResponseWriter, req *http.Request) {
+func CloneRepoController(res http.ResponseWriter, req *http.Request) {
 	err := godotenv.Load(); if(err!=nil) {
 		writeJSONError(res, http.StatusInternalServerError, "Not able to load environment variables.")
 	} 

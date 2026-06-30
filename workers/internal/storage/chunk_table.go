@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/brijesh025/ask_repo/internal/models"
+	"github.com/pgvector/pgvector-go"
 )
 
 func (s *Storage) ReplaceChunksForFile(ctx context.Context, fileID int64, chunks []models.CodeChunk) error {
@@ -25,12 +26,18 @@ func (s *Storage) ReplaceChunksForFile(ctx context.Context, fileID int64, chunks
 			file_path,
 			chunk_text,
 			start_line,
-			end_line
+			end_line,
+			embedding
 		)
-		VALUES ($1, $2, $3, $4, $5, $6)
+		VALUES ($1, $2, $3, $4, $5, $6, $7)
 	`
 
 	for _, chunk := range chunks {
+		var embedding any
+		if len(chunk.Embedding) > 0 {
+			embedding = pgvector.NewVector(chunk.Embedding)
+		}
+
 		if _, err := tx.Exec(
 			ctx,
 			query,
@@ -40,6 +47,7 @@ func (s *Storage) ReplaceChunksForFile(ctx context.Context, fileID int64, chunks
 			chunk.ChunkText,
 			chunk.StartLine,
 			chunk.EndLine,
+			embedding,
 		); err != nil {
 			return fmt.Errorf("failed to insert code chunk: %w", err)
 		}

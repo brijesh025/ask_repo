@@ -39,7 +39,9 @@ worker/
 ├── go.mod
 └── go.sum
 
-WHY? ------------->
+WHY THIS STRUCTURE? ------------->
+
+
   cmd: This directory contains the main entry point of the application. It is where the main.go file is located, which is the starting point of the worker application.
        it performs: 
         load config,
@@ -93,7 +95,17 @@ WHY? ------------->
             logging utilities
   tmp: Temporary cloned repositories.
 
-
+NOTE: Ingestion usually includes:
+                        loading/scanning
+                        cleaning/filtering
+                        chunking
+                        embedding
+                        storing
+        So we will only made a single pipeline for ingestion, and the pipeline will be responsible for calling the different components in the correct order.
+        Basically there will be two main routes for the worker:
+                1. /ingest: responsible for ingesting a repository, it will call the different components in the correct order.
+                2. /retrieve: responsible for retrieving the ingested repositories, it will call the search component.
+ 
 ----------------------------------------------------------------Postgress SQL Database----------------------------------------------------------
   Set Up:
     1. Install PostgreSQL on your local machine or use a cloud-based PostgreSQL service.
@@ -126,6 +138,7 @@ WHY? ------------->
                                 psql: command to run inside container
                                 -U askrepo: PostgreSQL username
                                 -d askrepo: PostgreSQL database name
+                ->to open interactive terminal for postgres: docker exec -u root -it askrepo-postgress bash 
 
 
 ------------> PostgreSQL syntax:
@@ -146,9 +159,32 @@ WHY? ------------->
 ---------------------------------------------------Go Syntax and Concepts---------------------------------------------------
 1.Package Declaration: Every Go file starts with a package declaration. The package name is typically the same as the
         directory name. For example, if you have a file in the "github" directory, it would start with "package github".
+
 2.Pointers: In go to pass by reference we declare arguments as pointer type using * before the type, and while calling 
         the function we pass the address of the variable using & before the variable name. This allows the function
         to modify the original variable's value.
+
 3.Context: Context is used to manage deadlines, cancellation signals, and other request-scoped values across API boundaries
-         and between processes. It is commonly used in database operations, HTTP requests, and other long-running operations
+          and between processes. It is commonly used in database operations, HTTP requests, and other long-running operations
           to allow for graceful cancellation and timeout handling.
+
+4.Struct vs Interface: A struct is a composite data type that groups together variables under a single name, while an
+        interface defines a set of method signatures that a type must implement. Structs are used to create concrete 
+        types, while interfaces are used to define behavior and enable polymorphism.
+
+
+
+---------------------------------Command to run the project---------------------------------
+1. to run the code: go run main.go
+
+2. to build the code: go build main.go
+
+3. to run the built code: ./main
+
+4. to intialise pacakge:go mod init github.com/brijesh025/poscast
+
+5. to download pacakge: go get "link to package"
+
+6. to get automatic dependencies and fix indirect dependencies**: go mod tidy
+
+7. to run test cases: go test -v

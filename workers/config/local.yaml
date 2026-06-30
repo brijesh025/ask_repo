@@ -9,3 +9,6 @@ local_storage:
 http_server:
   address: "localhost:3000"
   timeout: 10s
+
+embedding:
+  model: "text-embedding-3-small"
