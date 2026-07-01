@@ -190,3 +190,7 @@ NOTE: Ingestion usually includes:
 6. to get automatic dependencies and fix indirect dependencies**: go mod tidy
 
 7. to run test cases: go test -v
+
+
+-------------------------------Git Commands---------------------------------------------------
+1. to remove a tracked file from git: git rm --cached <file>
