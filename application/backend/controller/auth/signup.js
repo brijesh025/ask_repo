@@ -1,25 +1,44 @@
 const User=require('../../models/user')
 const {setUser}=require('../../services/auth')
+const bcrypt=require("bcrypt")
 
 async function handleUserSignUp(req,res) {
     
-    const{FirstName,LastName,email,password}=req.body;
-    const isAvail=await User.find({email})
+    const{firstName,lastName,email,password}=req.body;
+    const isAvail=await User.findOne({email})
 
-    if(isAvail>0)
+    if(isAvail)
     {
-        return res.json("email already exists");
+        return res.status(409).json({
+            error: "Email already exists",
+        });
     }
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const user=await User.create({
-        FirstName,
-        LastName,
+        firstName,
+        lastName,
         email,
-        password
+        password:hashedPassword,
     }); //creating record in database
 
     const token = setUser(user);
-    res.cookie("uid",token,{path:"/"}) // '/' is always fixed
-    return res.redirect("/") 
+    res.cookie("uid", token, {
+        httpOnly: true,
+        path: "/",
+    });
+
+    return res.status(201).json({
+        message: "Signup successful",
+        token,
+        user: {
+            _id: user._id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+        },
+    });
 }
 
 module.exports={

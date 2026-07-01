@@ -113,10 +113,11 @@ NOTE: Ingestion usually includes:
     3. Create a new user named "askrepo" with password "askrepo" and grant all privileges on the "askrepo" database.
 
     SQL Commands:
-    CREATE DATABASE askrepo;
-    CREATE USER askrepo WITH PASSWORD 'askrepo';
-    GRANT ALL PRIVILEGES ON DATABASE askrepo TO askrepo;
-
+    1. to create a database: CREATE DATABASE askrepo;
+    2. to create a user: CREATE USER askrepo WITH PASSWORD 'askrepo';
+    3. to grant privileges: GRANT ALL PRIVILEGES ON DATABASE askrepo TO askrepo;
+    4. to show all databases: 
+    5. to show all users: 
     --------> Local setup:
                 Using Docker: 
                         docker run --name askrepo-postgres `
@@ -138,7 +139,8 @@ NOTE: Ingestion usually includes:
                                 psql: command to run inside container
                                 -U askrepo: PostgreSQL username
                                 -d askrepo: PostgreSQL database name
-                ->to open interactive terminal for postgres: docker exec -u root -it askrepo-postgress bash 
+                ->to open interactive terminal for postgres: 1. docker exec -u root -it askrepo-postgress bash 
+                                                             2. psql -U askrepo -d askrepo --> askrepo is the username and askrepo is the database name
 
 
 ------------> PostgreSQL syntax:

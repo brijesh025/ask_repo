@@ -20,6 +20,7 @@ const (
 
 type Embedder interface {
 	EmbedTexts(ctx context.Context, texts []string) ([][]float32, error)
+	EmbedQuery(ctx context.Context, query string) ([]float32, error)
 }
 
 type OpenAIEmbedder struct {
@@ -80,6 +81,17 @@ func (e *OpenAIEmbedder) EmbedTexts(ctx context.Context, texts []string) ([][]fl
 	}
 
 	return embeddings, nil
+}
+
+func (e *OpenAIEmbedder) EmbedQuery(ctx context.Context, query string) ([]float32, error) {
+	embeddings, err := e.EmbedTexts(ctx, []string{query})
+	if err != nil {
+		return nil, err
+	}
+	if len(embeddings) == 0 {
+		return nil, fmt.Errorf("empty query embedding response")
+	}
+	return embeddings[0], nil
 }
 
 func (e *OpenAIEmbedder) embedBatch(ctx context.Context, texts []string) ([][]float32, error) {

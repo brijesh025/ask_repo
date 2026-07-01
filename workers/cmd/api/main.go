@@ -10,6 +10,7 @@ import (
 	"github.com/brijesh025/ask_repo/internal/config"
 	"github.com/brijesh025/ask_repo/internal/embed"
 	httproutes "github.com/brijesh025/ask_repo/internal/http/routes"
+	"github.com/brijesh025/ask_repo/internal/search"
 	"github.com/brijesh025/ask_repo/internal/storage"
 	"github.com/joho/godotenv"
 )
@@ -35,11 +36,29 @@ func main() {
 		log.Fatalf("failed to ensure database schema: %s", err)
 	}
 
-	embedder := embed.NewOpenAIEmbedder(os.Getenv("OPENAI_API_KEY"), cnfg.Embedding.Model)
+	embedder, err := embed.NewEmbedder(embed.Options{
+		Provider:     cnfg.Embedding.Provider,
+		Model:        cnfg.Embedding.Model,
+		Dimensions:   cnfg.Embedding.Dimensions,
+		OpenAIAPIKey: os.Getenv("OPENAI_API_KEY"),
+		GeminiAPIKey: os.Getenv("GEMINI_API_KEY"),
+	})
+	if err != nil {
+		log.Fatalf("failed to configure embedder: %s", err)
+	}
+	slog.Info(
+		"Embedding provider configured",
+		slog.String("provider", cnfg.Embedding.Provider),
+		slog.String("model", cnfg.Embedding.Model),
+		slog.Int("dimensions", cnfg.Embedding.Dimensions),
+	)
+
+	answerer := search.NewGeminiAnswerer(os.Getenv("GEMINI_API_KEY"), cnfg.LLM.Model, cnfg.LLM.Temperature)
+	searchService := search.NewService(store, embedder, answerer)
 
 	// setup router
 	router := http.NewServeMux()
-	httproutes.Register(router, store, embedder)
+	httproutes.Register(router, store, embedder, cnfg.LocalStorage.Path, searchService)
 
 	// setup HTTP server
 	server := http.Server{

@@ -22,7 +22,15 @@ type LocalStorage struct {
 }
 
 type Embedding struct {
-	Model string `yaml:"model" env:"EMBEDDING_MODEL" env-default:"text-embedding-3-small"`
+	Provider   string `yaml:"provider" env:"EMBEDDING_PROVIDER" env-default:"gemini"`
+	Model      string `yaml:"model" env:"EMBEDDING_MODEL" env-default:"gemini-embedding-001"`
+	Dimensions int    `yaml:"dimensions" env:"EMBEDDING_DIMENSIONS" env-default:"1536"`
+}
+
+type LLM struct {
+	Provider    string  `yaml:"provider" env:"LLM_PROVIDER" env-default:"gemini"`
+	Model       string  `yaml:"model" env:"LLM_MODEL" env-default:"gemini-3.5-flash"`
+	Temperature float64 `yaml:"temperature" env:"LLM_TEMPERATURE" env-default:"0.2"`
 }
 
 type Config struct {
@@ -31,6 +39,7 @@ type Config struct {
 	HTTPServer   HTTPServer   `yaml:"http_server"`
 	LocalStorage LocalStorage `yaml:"local_storage"`
 	Embedding    Embedding    `yaml:"embedding"`
+	LLM          LLM          `yaml:"llm"`
 }
 
 func MustLoad() *Config {

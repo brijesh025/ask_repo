@@ -11,4 +11,11 @@ http_server:
   timeout: 10s
 
 embedding:
-  model: "text-embedding-3-small"
+  provider: "gemini"
+  model: "gemini-embedding-001"
+  dimensions: 1536
+
+llm:
+  provider: "gemini"
+  model: "gemini-3.5-flash"
+  temperature: 0.2

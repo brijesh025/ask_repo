@@ -25,6 +25,7 @@ type Result struct {
 	Files        int
 	Chunks       int
 	Embeddings   int
+	SampleFiles  []string
 }
 
 func NewService(store *storage.Storage, embedder embed.Embedder) *Service {
@@ -66,6 +67,13 @@ func (s *Service) IngestRepo(ctx context.Context, repo models.Repository) (*Resu
 	}
 
 	result := &Result{RepositoryID: repositoryID, Files: len(files)}
+	for i, file := range files {
+		if i >= 10 {
+			break
+		}
+		result.SampleFiles = append(result.SampleFiles, file.RelPath)
+	}
+
 	for _, scannedFile := range files {
 		content, err := os.ReadFile(scannedFile.AbsPath)
 		if err != nil {
