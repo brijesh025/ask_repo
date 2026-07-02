@@ -1,5 +1,6 @@
 const { getUser } = require("../../services/auth");
 
+
 function checkForAuthentication(req, res, next) {
   const authorizationHeaderValue = req.headers["authorization"];
 

@@ -23,3 +23,33 @@ Backend folder architrecture:
 1. to intialise package.json: npm init -y
 
 
+AFTER CORE AUTHENTICATION
+step2: Middlewares enabling
+Incoming Request
+      │
+      ▼
+helmet()          → Add security headers
+      ▼
+cors()            → Check if frontend is allowed
+      ▼
+morgan()          → Log the request
+      ▼
+express.json()    → Parse JSON body
+      ▼
+urlencoded()      → Parse form data
+      ▼
+cookieParser()    → Read cookies
+      ▼
+Routes
+
+
+//step3 : RATE LIMITING
+without rate limting: An attacker could keep trying passwords.
+-creating limiter in main.js
+const authLimiter = rateLimit({
+    windowMs: 60 * 1000, // 1 minute:Count requests during 1 minute.
+    max: 10, // Maximum 10 requests per IP
+    message: {
+        error: "Too many requests, try again later",
+    },
+});
