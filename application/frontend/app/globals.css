@@ -5,6 +5,13 @@
   --foreground: #171717;
   --font-geist-sans: Arial, Helvetica, sans-serif;
   --font-geist-mono: "Courier New", Consolas, monospace;
+  --accent: #ff3b5c;
+  --accent-hover: #ff244b;
+  --surface: #111111;
+  --surface-alt: #151313;
+  --surface-card: #201b1b;
+  --text-primary: #fff4ef;
+  --text-muted: #a1a1aa;
 }
 
 @theme inline {
@@ -27,13 +34,41 @@ body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
+/* ── Smooth scrolling ── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Hero floating nodes ── */
+@keyframes float-node {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-20px) rotate(3deg);
+    opacity: 0.3;
+  }
+}
+
+@keyframes float-node-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.12;
+  }
+  50% {
+    transform: translateY(15px) rotate(-2deg);
+    opacity: 0.25;
+  }
+}
+
+/* ── Pipeline flow (existing, kept) ── */
 @keyframes pipeline-flow {
   0% {
     opacity: 0;
     transform: translateX(-105%);
   }
-  14%,
-  86% {
+  14%, 86% {
     opacity: 1;
   }
   100% {
@@ -43,13 +78,102 @@ body {
 }
 
 @keyframes pipeline-pulse {
-  0%,
-  100% {
+  0%, 100% {
     opacity: 0.25;
     transform: scale(0.72);
   }
   45% {
     opacity: 1;
     transform: scale(1.25);
+  }
+}
+
+/* ── Data particle traveling between pipeline nodes ── */
+@keyframes particle-flow {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes particle-flow-vertical {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* ── Typing cursor blink ── */
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Fade in up entrance ── */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Step accent bar slide ── */
+@keyframes accent-bar-slide {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ── Glow pulse on pipeline nodes ── */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(255, 59, 92, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(255, 59, 92, 0.4);
+  }
+}
+
+/* ── Orbit animation for hero background ── */
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(var(--orbit-radius, 120px)) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--orbit-radius, 120px)) rotate(-360deg);
+  }
+}
+
+/* ── Connector dash animation ── */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -20;
   }
 }
