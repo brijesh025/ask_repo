@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import {
   MessageSquareText,
   Binary,
-  Search,
+  Database,
   FileText,
   Cpu,
   FileCheck,
@@ -12,38 +12,38 @@ import {
 
 const pipelineStages = [
   {
-    id: "query",
-    icon: MessageSquareText,
-    label: "User Query",
+    id: "ingest",
+    icon: Binary,
+    label: "Clone & Scan",
     description:
-      "You type a plain-English question about the codebase — no special syntax or config needed.",
+      "A Go worker clones the repository, filters relevant source files, and prepares them for processing.",
     color: "#fff4ef",
     bgColor: "#fff4ef",
   },
   {
-    id: "embedding",
-    icon: Binary,
-    label: "Embedding",
-    description:
-      "Your question is converted into a high-dimensional vector using an embedding model, capturing semantic meaning.",
-    color: "#ff3b5c",
-    bgColor: "#ff3b5c",
-  },
-  {
-    id: "search",
-    icon: Search,
-    label: "Vector Search",
-    description:
-      "The embedding is matched against the pre-indexed code vectors in the vector database using cosine similarity.",
-    color: "#ff3b5c",
-    bgColor: "#ff3b5c",
-  },
-  {
-    id: "retrieval",
+    id: "chunk",
     icon: FileText,
-    label: "Context Retrieval",
+    label: "Code Chunking",
     description:
-      "The most relevant code chunks — files, functions, docstrings — are retrieved with their exact locations.",
+      "Files are logically split by functions, classes, and methods, preserving metadata like file paths and line numbers.",
+    color: "#ff3b5c",
+    bgColor: "#ff3b5c",
+  },
+  {
+    id: "embed",
+    icon: Database,
+    label: "Vector Store",
+    description:
+      "Chunks are converted into embeddings and stored in a PostgreSQL vector database for fast semantic retrieval.",
+    color: "#ff3b5c",
+    bgColor: "#ff3b5c",
+  },
+  {
+    id: "query",
+    icon: MessageSquareText,
+    label: "User Query",
+    description:
+      "You ask a plain-English question. It's embedded and matched against the indexed code vectors.",
     color: "#ff3b5c",
     bgColor: "#ff3b5c",
   },
@@ -52,16 +52,16 @@ const pipelineStages = [
     icon: Cpu,
     label: "LLM Generation",
     description:
-      "The retrieved code context is sent to the LLM along with your question, grounding the answer in real code.",
+      "The retrieved context and your question are sent to the LLM to generate a source-grounded answer.",
     color: "#ff3b5c",
     bgColor: "#ff3b5c",
   },
   {
     id: "response",
     icon: FileCheck,
-    label: "Response + Citations",
+    label: "Verifiable Answer",
     description:
-      "You get a clear answer with cited file paths, line ranges, and an interactive graph view of code connections.",
+      "You receive a clear explanation, complete with cited file snippets and line references.",
     color: "#fff4ef",
     bgColor: "#fff4ef",
   },

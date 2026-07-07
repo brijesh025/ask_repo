@@ -2,19 +2,15 @@ import React from "react";
 import { HowToUseCard } from "../ui/HowToUseCard";
 import { RepoExampleCard } from "../ui/RepoExampleCard";
 
-export function HowItWorksSection() {
+export function DemoSection() {
   return (
     <section className="relative border-b border-zinc-800 text-white">
       {/* Section header */}
       <div className="border-b border-zinc-800 px-6 py-8 sm:px-10 sm:py-10 lg:px-16">
         <div className="mx-auto max-w-6xl">
-          <div className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
+          <div className="text-5xl font-black text-center uppercase tracking-widest text-white">
             Getting Started
           </div>
-          <h2 className="mt-2 text-2xl font-black text-[#fff4ef] sm:text-3xl">
-            Three steps to{" "}
-            <span className="text-[#ff3b5c]">understand any repo</span>
-          </h2>
         </div>
       </div>
 

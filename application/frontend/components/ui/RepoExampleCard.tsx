@@ -63,7 +63,7 @@ export function RepoExampleCard() {
   return (
     <div
       id="repo-example-card"
-      className="border border-zinc-700/60 bg-[#151313]/95 backdrop-blur-sm"
+      className="h-full border border-zinc-700/60 bg-[#151313]/95 backdrop-blur-sm"
     >
       {/* Repo header */}
       <div className="flex items-center justify-between border-b border-zinc-800 px-6 py-4 sm:px-8">

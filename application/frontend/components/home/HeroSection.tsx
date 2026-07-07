@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { GlowingRed } from "../ui/GlowingRed";
 import { ArrowDown } from "lucide-react";
 
 function GitHubIcon({ className = "" }: { className?: string }) {
@@ -99,17 +98,14 @@ export function HeroSection() {
         aria-hidden="true"
       />
 
-      {/* Glowing accents */}
-      <GlowingRed className="-left-40 top-1/4 z-0 w-96 -rotate-12 opacity-60" />
-      <GlowingRed className="-right-40 bottom-1/3 z-0 w-96 rotate-12 opacity-60" />
 
       {/* Floating code-graph nodes (background decoration) */}
       <FloatingNode className="left-[8%] top-[15%]" size={48} delay={0} label="fn" />
       <FloatingNode className="right-[12%] top-[20%]" size={36} delay={1.2} label=".ts" />
       <FloatingNode className="left-[15%] bottom-[25%]" size={42} delay={2.4} label="api" />
       <FloatingNode className="right-[8%] bottom-[18%]" size={38} delay={0.8} label=".py" />
-      <FloatingNode className="left-[35%] top-[10%] hidden lg:flex" size={32} delay={1.8} label="db" />
-      <FloatingNode className="right-[30%] bottom-[12%] hidden lg:flex" size={44} delay={3.0} label="src" />
+      <FloatingNode className="left-[35%] top-[5%] hidden lg:flex" size={32} delay={1.8} label="db" />
+      <FloatingNode className="right-[20%] bottom-[12%] hidden lg:flex" size={44} delay={3.0} label="src" />
       <FloatingConnector className="left-[12%] top-[28%]" width={50} delay={0.5} />
       <FloatingConnector className="right-[15%] top-[32%]" width={40} delay={1.5} />
       <FloatingConnector className="left-[20%] bottom-[30%] hidden lg:block" width={65} delay={2.0} />
@@ -117,16 +113,6 @@ export function HeroSection() {
       {/* ─── Main content ─── */}
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center">
         {/* Badge */}
-        <div
-          className="mb-8 flex items-center gap-2 rounded-full border border-zinc-700/60 bg-zinc-800/40 px-5 py-2 backdrop-blur-sm"
-          style={{ animation: "fade-in-up 0.6s ease-out 0.1s both" }}
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-[#ff3b5c] animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">
-            AI-Powered Codebase Intelligence
-          </span>
-        </div>
-
         {/* Headline */}
         <h1
           className="text-5xl font-black leading-[0.95] tracking-tight text-[#fff4ef] sm:text-7xl lg:text-8xl xl:text-[112px]"
@@ -145,9 +131,7 @@ export function HeroSection() {
           className="mt-6 max-w-2xl text-base font-semibold leading-relaxed text-zinc-400 sm:text-lg lg:mt-8 lg:text-xl"
           style={{ animation: "fade-in-up 0.6s ease-out 0.35s both" }}
         >
-          Chat with any GitHub repository, visualize code connections as
-          interactive graphs, and trace how every file and function fits
-          together — powered by RAG.
+          Chat with any GitHub repository, visualize code connections as interactive graphs, and trace how every file and function fits together.
         </p>
 
         {/* CTAs */}
@@ -178,23 +162,6 @@ export function HeroSection() {
           </a>
         </div>
 
-        {/* Scroll hint */}
-        <div
-          className="mt-16 flex flex-col items-center gap-2 lg:mt-20"
-          style={{ animation: "fade-in-up 0.6s ease-out 0.7s both" }}
-        >
-          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-600">
-            Scroll to explore
-          </span>
-          <div className="flex h-8 w-5 items-start justify-center rounded-full border border-zinc-700/60 p-1">
-            <div
-              className="h-1.5 w-1 rounded-full bg-zinc-500"
-              style={{
-                animation: "particle-flow-vertical 2s ease-in-out infinite",
-              }}
-            />
-          </div>
-        </div>
       </div>
     </section>
   );

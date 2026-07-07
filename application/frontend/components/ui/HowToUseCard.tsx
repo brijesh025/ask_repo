@@ -6,20 +6,20 @@ import { GitBranch, MessageSquare, CheckCircle } from "lucide-react";
 const steps = [
   {
     number: "01",
-    title: "Connect your repo",
-    body: "Paste any GitHub repository URL. AskRepo clones, parses, and indexes every file — building a searchable knowledge graph of the entire codebase.",
+    title: "Connect a repository",
+    body: "Select any GitHub repository. Our Go worker clones the source, filters files, and chunks the code into meaningful segments (functions, classes).",
     icon: GitBranch,
   },
   {
     number: "02",
-    title: "Ask naturally",
-    body: "Ask questions the way you'd ask a senior dev. \"How does auth work?\" or \"Where is the payment flow handled?\" — plain English, zero config.",
+    title: "Ask code questions",
+    body: "Type natural-language questions like 'How does authentication work?'. AskRepo performs a semantic search to retrieve the most relevant code contexts.",
     icon: MessageSquare,
   },
   {
     number: "03",
-    title: "Verify the answer",
-    body: "Every answer comes with cited files, exact line ranges, and retrieved code snippets. Explore the interactive code graph to see how components connect.",
+    title: "Get detailed explaination and view of code",
+    body: "The LLM generates a clear explanation backed by exact file paths and source snippets. Every answer is fully traceable to the original code.",
     icon: CheckCircle,
   },
 ];
@@ -28,7 +28,7 @@ export function HowToUseCard() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <div className="border border-zinc-700/60 bg-[#201b1b]/90 backdrop-blur-sm">
+    <div className="h-full border border-zinc-700/60 bg-[#201b1b]/90 backdrop-blur-sm">
       {/* Header */}
       <div className="border-b border-zinc-800 px-6 py-5 sm:px-8 sm:py-6">
         <div className="text-[10px] font-black uppercase tracking-widest text-[#ff3b5c]">
@@ -37,7 +37,7 @@ export function HowToUseCard() {
         <h2 className="mt-2 text-xl font-black leading-tight text-[#fff4ef] sm:text-2xl">
           Connect a repo, ask a question,
           <br className="hidden sm:block" />
-          then inspect the evidence.
+          and get human readable detailed explanation.
         </h2>
       </div>
 
@@ -70,7 +70,7 @@ export function HowToUseCard() {
               />
 
               {/* Number + Icon */}
-              <div className="flex flex-shrink-0 flex-col items-center gap-2">
+              <div className="flex shrink-0 flex-col items-center gap-2">
                 <div
                   className={`flex h-10 w-10 items-center justify-center rounded-lg border transition-all duration-300 ${
                     isActive

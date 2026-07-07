@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/home/HeroSection";
-import { HowItWorksSection } from "@/components/home/HowItWorksSection";
+import { DemoSection } from "@/components/home/DemoSection";
 import { RAGPipelineSection } from "@/components/home/RAGPipelineSection";
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
       <main className="mx-auto min-h-screen max-w-[1440px] border-x border-zinc-800 bg-[#111111]">
         <Navbar />
         <HeroSection />
-        <HowItWorksSection />
+        <DemoSection />
         <RAGPipelineSection />
       </main>
     </div>
