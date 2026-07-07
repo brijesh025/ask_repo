@@ -3,7 +3,7 @@ const {setUser}=require('../../services/auth')
 const bcrypt=require("bcrypt")
 
 async function handleUserSignUp(req,res) {
-    
+    console.log(req.body);
     const{firstName,lastName,email,password}=req.body;
     const isAvail=await User.findOne({email})
 
