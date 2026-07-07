@@ -3,9 +3,15 @@ import { SessionProvider } from "@/components/providers/SessionProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AskRepo | Chat with any GitHub repository",
+  title: {
+    default: "AskRepo",
+    template: "%s | AskRepo",
+  },
   description:
     "Connect a repository, ask plain-English code questions, and get answers grounded in exact files and functions.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
