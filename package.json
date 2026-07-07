@@ -1,8 +1,0 @@
-{
-  "scripts": {
-    "start": "node ./application/backend/main.js"
-  },
-  "dependencies": {
-    "bcrypt": "^6.0.0"
-  }
-}
