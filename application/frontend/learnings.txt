@@ -15,3 +15,41 @@
     3. to set upstreaming: git push --set-upstream origin main
     4. git fetch: git fetch origin main / git fetch upstream main
          ----> this just download the laatest branch codes do not modify any file, use to compare the code
+
+4. NextJS Routing:
+    -> Next.js has built in routing system, so we don't need to setup routing manually, 
+    there is a next module installed in next.js which is used for routing.
+    -> that next module contains it's own code, it's own logic to handle routing, so we don't need to worry about it, 
+    we just need to use it.
+
+5. Oauth flow:
+    -> make a auth.ts and write the heart of Auth.js. It says: “My app supports GitHub login, and my custom login page is /login.”
+    -> app/api/auth/[...nextauth]/route.ts: 
+        -> this is the route where the next-auth will handle the authentication flow.
+        -> it will handle the login, logout, callback, and session management.
+        -> it will also handle the OAuth flow for GitHub login.
+    -> make button and put the signin method for that button on the cutom login page.
+       It will redirect to the GitHub login page and after successful login, it will redirect back to the callback URL.
+    -----> Here is the full mental model.
+                1. auth.ts is your Auth.js configuration file. It tells Auth.js which login methods exist. Right now, only GitHub exists.
+                2. route.ts connects Auth.js to the Next.js route system. Without this file, GitHub cannot redirect back into your app.
+                3. GitHubAuthButton is a Server Component. When the form submits, the server action runs on the Next.js server, not in the browser.
+                4. signIn("github") starts the OAuth flow. The browser gets redirected to GitHub.
+                5. GitHub asks the user to approve the app. After approval, GitHub redirects back to:
+                http://localhost:3000/api/auth/callback/github
+                6. Auth.js receives that callback, verifies it, creates a session, and stores the session in a secure cookie.
+                7. Then auth() reads that cookie on the server. That is how your Navbar knows whether the user is logged in.
+                The key lesson: GitHub OAuth is not a normal onClick login. It is a server-led redirect flow, so Server Components and Server Actions fit it very cleanly.
+    
+    When the user clicks Sign in with GitHub, this happens:
+            1. Browser submits form in GitHubAuthButton.
+            2. Next.js runs the server action.
+            3. Server action calls signIn("github").
+            4. Auth.js redirects browser to GitHub.
+            5. GitHub asks user to approve your OAuth app.
+            6. GitHub redirects back to /api/auth/callback/github.
+            7. Auth.js receives a temporary code from GitHub.
+            8. Auth.js exchanges that code for GitHub account data.
+            9. Auth.js creates an AskRepo session cookie.
+            10. User is redirected back to your app.
+            11. Navbar calls auth() and sees session.user.

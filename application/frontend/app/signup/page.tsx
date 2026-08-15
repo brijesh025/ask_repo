@@ -1,11 +1,6 @@
-"use client";
-
 import React from "react";
 import { AuthLayout } from "@/components/layout/AuthLayout";
-import {
-  SocialAuthButtons,
-  Divider,
-} from "@/components/ui/SocialAuthButtons";
+import { GitHubAuthButton } from "@/components/auth/GitHubAuthButton";
 
 export default function SignUpPage() {
   return (
@@ -100,11 +95,7 @@ export default function SignUpPage() {
       >
         Create Account
       </button>
-
-      <Divider />
-
-      {/* Social auth */}
-      <SocialAuthButtons action="sign up" />
+      <GitHubAuthButton label="Sign up with GitHub" />
 
       {/* Link to login */}
       <p className="mt-6 text-center text-sm font-semibold text-zinc-500">

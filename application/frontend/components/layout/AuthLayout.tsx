@@ -20,7 +20,7 @@ export function AuthLayout({
       }}
     >
       <div className="w-full max-w-md">
-        {/* Logo */}
+        {/* Logo */} 
         <div className="mb-10 flex justify-center">
           <Logo />
         </div>

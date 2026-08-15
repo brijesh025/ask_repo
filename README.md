@@ -62,12 +62,8 @@ flowchart LR
 ```text
 ask_repo/
 |-- application/
-|   |-- app/
-|   |-- components/
-|   |-- public/
-|   |-- package.json
-|   |-- next.config.ts
-|   `-- tsconfig.json
+|   |-- backend/
+|   |-- frontend/
 |-- workers/
 |   `-- main.go
 `-- README.md
@@ -184,15 +180,15 @@ Flow:
 
 ## Technology Stack
 
-| Area | Technology |
-| --- | --- |
-| Frontend | Next.js, React, TypeScript |
-| Styling | Tailwind CSS |
-| Backend worker | Go |
-| Repository provider | GitHub |
-| Search | Semantic and hybrid retrieval |
-| Storage | PostgreSQL and vector search |
-| AI layer | Embeddings and LLM-generated explanations |
+| Area                | Technology                                |
+| ------------------- | ----------------------------------------- |
+| Frontend            | Next.js, React, TypeScript                |
+| Styling             | Tailwind CSS                              |
+| Backend worker      | Go                                        |
+| Repository provider | GitHub                                    |
+| Search              | Semantic and hybrid retrieval             |
+| Storage             | PostgreSQL and vector search              |
+| AI layer            | Embeddings and LLM-generated explanations |
 
 ## Getting Started
 
@@ -219,12 +215,12 @@ http://localhost:3000
 
 Run these commands from the `application/` directory.
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start the Next.js development server |
+| Command           | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`   | Start the Next.js development server |
 | `npm run build` | Build the application for production |
-| `npm run start` | Start the production server |
-| `npm run lint` | Run ESLint |
+| `npm run start` | Start the production server          |
+| `npm run lint`  | Run ESLint                           |
 
 ## Project Roadmap
 
