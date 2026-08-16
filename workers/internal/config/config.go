@@ -33,6 +33,10 @@ type LLM struct {
 	Temperature float64 `yaml:"temperature" env:"LLM_TEMPERATURE" env-default:"0.2"`
 }
 
+type CORS struct {
+	AllowedOrigin string `yaml:"allowed_origin" env:"CORS_ALLOWED_ORIGIN" env-default:"http://localhost:3000"`
+}
+
 type Config struct {
 	Env          string       `yaml:"env" env:"ENV" env-default:"production"`
 	Database     Database     `yaml:"database"`
@@ -40,6 +44,7 @@ type Config struct {
 	LocalStorage LocalStorage `yaml:"local_storage"`
 	Embedding    Embedding    `yaml:"embedding"`
 	LLM          LLM          `yaml:"llm"`
+	CORS         CORS         `yaml:"cors"`
 }
 
 func MustLoad() *Config {

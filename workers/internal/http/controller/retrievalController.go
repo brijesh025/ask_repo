@@ -31,6 +31,10 @@ func RetrieveController(searchService *search.Service) http.HandlerFunc {
 			writeJSONError(res, http.StatusBadRequest, "question is required")
 			return
 		}
+		if reqBody.RepositoryID <= 0 {
+			writeJSONError(res, http.StatusBadRequest, "repository_id is required")
+			return
+		}
 
 		result, err := searchService.AnswerQuestion(req.Context(), reqBody.Question, reqBody.RepositoryID, reqBody.TopK)
 		if err != nil {

@@ -59,11 +59,12 @@ func main() {
 	// setup router
 	router := http.NewServeMux()
 	httproutes.Register(router, store, embedder, cnfg.LocalStorage.Path, searchService)
+	handler := httproutes.WithCORS(router, cnfg.CORS.AllowedOrigin)
 
 	// setup HTTP server
 	server := http.Server{
 		Addr:    cnfg.HTTPServer.Address,
-		Handler: router,
+		Handler: handler,
 	}
 	slog.Info("Server Started", slog.String("address", server.Addr))
 	err = server.ListenAndServe()
