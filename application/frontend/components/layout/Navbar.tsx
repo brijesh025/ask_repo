@@ -11,19 +11,28 @@ export async function Navbar() {
 
       <div className="flex items-center gap-3 text-xs font-black tracking-widest sm:gap-6">
         {session?.user ? (
-          <form
-            action={async () => {
-              "use server";
-              await signOut({ redirectTo: "/" });
-            }}
-          >
-            <button
-              type="submit"
+          <>
+            <Link
+              href="/profile"
               className="border border-zinc-700 px-4 py-3 text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-900 hover:text-white sm:px-6"
             >
-              SIGN OUT
-            </button>
-          </form>
+              PROFILE
+            </Link>
+
+            <form
+              action={async () => {
+                "use server";
+                await signOut({ redirectTo: "/" });
+              }}
+            >
+              <button
+                type="submit"
+                className="border border-zinc-700 px-4 py-3 text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-900 hover:text-white sm:px-6"
+              >
+                SIGN OUT
+              </button>
+            </form>
+          </>
         ) : (
           <>
             <Link
