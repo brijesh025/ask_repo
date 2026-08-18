@@ -2,7 +2,7 @@ import React from 'react'
 
 export function Logo() {
   return (
-    <a href="#hero" className="group flex items-center">
+    <a href="/" className="group flex items-center">
       {/* "A" square */}
       <div className="relative z-10 flex h-8 w-8 items-center justify-center bg-[#fff4ef] text-3xl font-black text-[#111111]">
         A

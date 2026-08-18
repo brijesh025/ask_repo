@@ -32,7 +32,7 @@ func (s *Storage) EnsureSchema(ctx context.Context) error {
 			chunk_text TEXT NOT NULL,
 			start_line INTEGER NOT NULL,
 			end_line INTEGER NOT NULL,
-			embedding vector(1536),
+			embedding vector(768),
 			created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 		)`,
 		`CREATE INDEX IF NOT EXISTS repo_files_repository_id_idx ON repo_files(repository_id)`,

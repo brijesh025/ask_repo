@@ -8,6 +8,7 @@ import (
 const (
 	ProviderOpenAI = "openai"
 	ProviderGemini = "gemini"
+	ProviderOllama = "ollama"
 )
 
 type Options struct {
@@ -29,6 +30,8 @@ func NewEmbedder(options Options) (Embedder, error) {
 		return NewOpenAIEmbedder(options.OpenAIAPIKey, options.Model), nil
 	case ProviderGemini:
 		return NewGeminiEmbedder(options.GeminiAPIKey, options.Model, options.Dimensions), nil
+	case ProviderOllama:
+		return NewOllamaEmbedder(options.Model), nil
 	default:
 		return nil, fmt.Errorf("unsupported embedding provider: %s", options.Provider)
 	}

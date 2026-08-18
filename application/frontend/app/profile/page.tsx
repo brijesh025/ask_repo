@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { Navbar } from "@/components/layout/Navbar";
-import { RepositoryList } from "@/components/profile/RepositoryList";
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -52,8 +51,47 @@ export default async function ProfilePage() {
                 </div>
               </div>
             </div>
+          </div>
 
-            <RepositoryList />
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="border border-zinc-800 bg-[#111111] p-5">
+              <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                Account
+              </p>
+              <h2 className="mt-3 text-lg font-black text-[#fff4ef]">
+                GitHub connected
+              </h2>
+              <p className="mt-2 text-sm font-semibold leading-6 text-zinc-500">
+                Your current session comes from GitHub OAuth. Email login can be
+                linked here later.
+              </p>
+            </div>
+
+            <div className="border border-zinc-800 bg-[#111111] p-5">
+              <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                Preferences
+              </p>
+              <h2 className="mt-3 text-lg font-black text-[#fff4ef]">
+                Settings coming soon
+              </h2>
+              <p className="mt-2 text-sm font-semibold leading-6 text-zinc-500">
+                Profile settings should stay here, separate from repository
+                work.
+              </p>
+            </div>
+
+            <div className="border border-zinc-800 bg-[#111111] p-5">
+              <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                Repositories
+              </p>
+              <h2 className="mt-3 text-lg font-black text-[#fff4ef]">
+                Managed in dashboard
+              </h2>
+              <p className="mt-2 text-sm font-semibold leading-6 text-zinc-500">
+                Repo fetching, ingestion, file viewing, and questions belong in
+                the dashboard.
+              </p>
+            </div>
           </div>
         </section>
       </main>

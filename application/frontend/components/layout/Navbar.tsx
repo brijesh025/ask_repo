@@ -13,6 +13,13 @@ export async function Navbar() {
         {session?.user ? (
           <>
             <Link
+              href="/dashboard"
+              className="border border-zinc-700 px-4 py-3 text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-900 hover:text-white sm:px-6"
+            >
+              DASHBOARD
+            </Link>
+
+            <Link
               href="/profile"
               className="border border-zinc-700 px-4 py-3 text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-900 hover:text-white sm:px-6"
             >

@@ -116,8 +116,13 @@ NOTE: Ingestion usually includes:
     1. to create a database: CREATE DATABASE askrepo;
     2. to create a user: CREATE USER askrepo WITH PASSWORD 'askrepo';
     3. to grant privileges: GRANT ALL PRIVILEGES ON DATABASE askrepo TO askrepo;
-    4. to show all databases: 
-    5. to show all users: 
+    4. to show all databases: \dt;
+    5. to show all users: \du;
+    6. to switch database: \c database_name;
+    7. to drop a user: DROP USER user_name;
+    8. to delete a table: drop table table_name cascade;
+    9. to delete all data from a table: delete from table_name;
+
     --------> Local setup:
                 Using Docker: 
                         docker run --name askrepo-postgres `

@@ -9,7 +9,7 @@ export function GitHubAuthButton({ label }: GitHubAuthButtonProps) {
     <form
       action={async () => {
         "use server";
-        await signIn("github", { redirectTo: "/" });
+        await signIn("github", { redirectTo: "/dashboard" });
       }}
     >
       <button
