@@ -38,6 +38,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.githubLogin = token.githubLogin as string | undefined;
+        // @ts-ignore - inject access token into session for GitHub API calls
+        session.accessToken = token.accessToken;
       }
 
       return session;

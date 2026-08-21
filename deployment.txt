@@ -1,0 +1,4 @@
+steps to connect with azure vm:
+    1. download the ssh key from azure portal
+    2. give it read, write and execution permissions
+    3. run ssh -i "<path_to_key_file>" <username>@<vm_ip_address>

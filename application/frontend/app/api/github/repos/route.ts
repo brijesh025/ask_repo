@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { auth } from "@/auth";
 
 type GitHubRepo = {
   id: number;
@@ -18,12 +18,12 @@ const perPage = 100;
 const maxPages = 10;
 
 export async function GET(request: NextRequest) {
-  const token = await getToken({
-    req: request,
-    secret: process.env.AUTH_SECRET,
-  });
+  const session = await auth();
 
-  if (!token?.accessToken) {
+  // @ts-ignore - accessToken was injected in auth.ts
+  const accessToken = session?.accessToken;
+
+  if (!accessToken) {
     return NextResponse.json(
       { error: "GitHub session is required" },
       { status: 401 },
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
       {
         headers: {
           Accept: "application/vnd.github+json",
-          Authorization: `Bearer ${token.accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
           "X-GitHub-Api-Version": "2022-11-28",
         },
         cache: "no-store",
