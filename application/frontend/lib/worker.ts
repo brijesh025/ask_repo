@@ -1,8 +1,3 @@
-/**
- * Worker API client — types and fetch wrappers for the Go worker
- * running on localhost:8000 (proxied through Next.js API routes).
- */
-
 const WORKER_URL = process.env.WORKER_URL;
 
 // ─── Ingestion ───────────────────────────────────────────────
