@@ -10,7 +10,7 @@ import (
 )
 
 type HTTPServer struct {
-	Address string        `yaml:"address" env-required:"true"`
+	Address string        `yaml:"address" env:"HTTP_ADDRESS" env-default:"0.0.0.0:8000"`
 	Timeout time.Duration `yaml:"timeout"`
 }
 
@@ -18,7 +18,7 @@ type Database struct {
 	URL string `yaml:"url" env:"DATABASE_URL" env-required:"true"`
 }
 type LocalStorage struct {
-	Path string `yaml:"path"`
+	Path string `yaml:"path" env:"LOCAL_STORAGE_PATH" env-default:"/tmp/askrepo_data"`
 }
 
 type Embedding struct {

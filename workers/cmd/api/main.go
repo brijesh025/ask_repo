@@ -60,9 +60,14 @@ func main() {
 	router := http.NewServeMux()
 	httproutes.Register(router, store, embedder, cnfg.LocalStorage.Path, searchService)
 
+	addr := cnfg.HTTPServer.Address
+	if port := os.Getenv("PORT"); port != "" {
+		addr = "0.0.0.0:" + port
+	}
+
 	// setup HTTP server
 	server := http.Server{
-		Addr:    cnfg.HTTPServer.Address,
+		Addr:    addr,
 		Handler: router,
 	}
 	slog.Info("Server Started", slog.String("address", server.Addr))
