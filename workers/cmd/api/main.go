@@ -37,11 +37,13 @@ func main() {
 	}
 
 	embedder, err := embed.NewEmbedder(embed.Options{
-		Provider:     cnfg.Embedding.Provider,
-		Model:        cnfg.Embedding.Model,
-		Dimensions:   cnfg.Embedding.Dimensions,
-		OpenAIAPIKey: os.Getenv("OPENAI_API_KEY"),
-		GeminiAPIKey: os.Getenv("GEMINI_API_KEY"),
+		Provider:            cnfg.Embedding.Provider,
+		Model:               cnfg.Embedding.Model,
+		Dimensions:          cnfg.Embedding.Dimensions,
+		OpenAIAPIKey:        os.Getenv("OPENAI_API_KEY"),
+		GeminiAPIKey:        os.Getenv("GEMINI_API_KEY"),
+		CloudflareAccountID: os.Getenv("CLOUDFLARE_ACCOUNT_ID"),
+		CloudflareAPIToken:  os.Getenv("CLOUDFLARE_API_TOKEN"),
 	})
 	if err != nil {
 		log.Fatalf("failed to configure embedder: %s", err)
