@@ -1,4 +1,4 @@
-const WORKER_URL = process.env.WORKER_URL;
+const WORKER_API = '/api/worker';
 
 // ─── Ingestion ───────────────────────────────────────────────
 
@@ -42,7 +42,7 @@ export async function ingestRepo(
   repoUrl: string,
   name?: string,
 ): Promise<IngestResponse> {
-  const res = await fetch(`${WORKER_URL}/ingest`, {
+  const res = await fetch(`${WORKER_API}/ingest`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ repo_url: repoUrl, name } satisfies IngestRequest),
@@ -60,7 +60,7 @@ export async function retrieveAnswer(
   repositoryId: number,
   topK?: number,
 ): Promise<RetrieveResponse> {
-  const res = await fetch(`${WORKER_URL}/retrieve`, {
+  const res = await fetch(`${WORKER_API}/retrieve`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

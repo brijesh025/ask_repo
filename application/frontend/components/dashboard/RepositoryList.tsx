@@ -47,6 +47,7 @@ export function RepositoryList() {
     }
   }, []);
 
+  // Fetch repositories from GitHub API
   async function fetchRepositories() {
     setStatus("loading");
     setError("");
@@ -77,6 +78,7 @@ export function RepositoryList() {
     }
   }
 
+  // Generate the analysis URL for a given repository
   function analysisHref(repo: Repository) {
     const [owner, name] = repo.fullName.split("/");
     const pathname = `/dashboard/repositories/${encodeURIComponent(owner)}/${encodeURIComponent(name)}`;
