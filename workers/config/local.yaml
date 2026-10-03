@@ -11,11 +11,11 @@ http_server:
   timeout: 10s
 
 embedding:
-  # provider: "gemini"
-  # model: "gemini-embedding-001"
+  provider: "gemini"
+  model: "gemini-embedding-001"
   # dimensions: 1536
-  provider: "ollama"
-  model: "nomic-embed-text"
+  # provider: "ollama"
+  # model: "nomic-embed-text"
   dimensions: 768
 
 llm:
