@@ -21,14 +21,16 @@ type ingestRepoRequest struct {
 }
 
 type ingestRepoResponse struct {
-	Message      string   `json:"message"`
-	RepositoryID int64    `json:"repository_id"`
-	Files        int      `json:"files"`
-	Chunks       int      `json:"chunks"`
-	Embeddings   int      `json:"embeddings"`
-	LocalPath    string   `json:"local_path"`
-	Cloned       bool     `json:"cloned"`
-	SampleFiles  []string `json:"sample_files"`
+	Message        string   `json:"message"`
+	RepositoryID   int64    `json:"repository_id"`
+	Files          int      `json:"files"`
+	Chunks         int      `json:"chunks"`
+	Embeddings     int      `json:"embeddings"`
+	ASTChunks      int      `json:"ast_chunks"`
+	FallbackChunks int      `json:"fallback_chunks"`
+	LocalPath      string   `json:"local_path"`
+	Cloned         bool     `json:"cloned"`
+	SampleFiles    []string `json:"sample_files"`
 }
 
 func IngestRepoController(store *storage.Storage, embedder embed.Embedder, localStoragePath string) http.HandlerFunc {
@@ -102,14 +104,16 @@ func IngestRepoController(store *storage.Storage, embedder embed.Embedder, local
 		}
 
 		writeJSON(res, http.StatusCreated, ingestRepoResponse{
-			Message:      "repo ingested successfully",
-			RepositoryID: result.RepositoryID,
-			Files:        result.Files,
-			Chunks:       result.Chunks,
-			Embeddings:   result.Embeddings,
-			LocalPath:    localPath,
-			Cloned:       cloned,
-			SampleFiles:  result.SampleFiles,
+			Message:        "repo ingested successfully",
+			RepositoryID:   result.RepositoryID,
+			Files:          result.Files,
+			Chunks:         result.Chunks,
+			Embeddings:     result.Embeddings,
+			ASTChunks:      result.ASTChunks,
+			FallbackChunks: result.FallbackChunks,
+			LocalPath:      localPath,
+			Cloned:         cloned,
+			SampleFiles:    result.SampleFiles,
 		})
 	}
 }

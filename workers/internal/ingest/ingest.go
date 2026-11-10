@@ -21,11 +21,13 @@ type Service struct {
 }
 
 type Result struct {
-	RepositoryID int64
-	Files        int
-	Chunks       int
-	Embeddings   int
-	SampleFiles  []string
+	RepositoryID   int64
+	Files          int
+	Chunks         int
+	Embeddings     int
+	ASTChunks      int
+	FallbackChunks int
+	SampleFiles    []string
 }
 
 func NewService(store *storage.Storage, embedder embed.Embedder) *Service {
@@ -92,7 +94,17 @@ func (s *Service) IngestRepo(ctx context.Context, repo models.Repository) (*Resu
 			return nil, err
 		}
 
-		chunks := chunk.SplitIntoChunks(string(content), repositoryID, fileID, scannedFile.RelPath)
+		chunks, err := chunk.ChunkFile(
+			ctx,
+			string(content),
+			scannedFile.Language,
+			repositoryID,
+			fileID,
+			scannedFile.RelPath,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("failed to chunk %s: %w", scannedFile.RelPath, err)
+		}
 		if len(chunks) > 0 {
 			embeddings, err := s.embedder.EmbedTexts(ctx, embed.ChunkTexts(chunks))
 			if err != nil {
@@ -108,6 +120,13 @@ func (s *Service) IngestRepo(ctx context.Context, repo models.Repository) (*Resu
 			return nil, err
 		}
 		result.Chunks += len(chunks)
+		for _, codeChunk := range chunks {
+			if codeChunk.ChunkStrategy == "ast" {
+				result.ASTChunks++
+			} else {
+				result.FallbackChunks++
+			}
+		}
 	}
 
 	if err := s.store.MarkRepositoryIndexed(ctx, repositoryID); err != nil {

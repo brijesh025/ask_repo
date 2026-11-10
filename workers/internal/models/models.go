@@ -22,24 +22,36 @@ type RepoFile struct {
 }
 
 type CodeChunk struct {
-	ID           int64
-	RepositoryID int64
-	FileID       int64
-	FilePath     string
-	ChunkText    string
-	StartLine    int
-	EndLine      int
-	Embedding    []float32
+	ID            int64
+	RepositoryID  int64
+	FileID        int64
+	FilePath      string
+	Language      string
+	Symbol        string
+	SymbolKind    string
+	ParentSymbol  string
+	ChunkIndex    int
+	ChunkStrategy string
+	ChunkText     string
+	StartLine     int
+	EndLine       int
+	Embedding     []float32
 }
 
 type RetrievedChunk struct {
-	ID           int64   `json:"id"`
-	RepositoryID int64   `json:"repository_id"`
-	FilePath     string  `json:"file_path"`
-	ChunkText    string  `json:"chunk_text"`
-	StartLine    int     `json:"start_line"`
-	EndLine      int     `json:"end_line"`
-	Distance     float64 `json:"distance"`
+	ID            int64   `json:"id"`
+	RepositoryID  int64   `json:"repository_id"`
+	FilePath      string  `json:"file_path"`
+	Language      string  `json:"language"`
+	Symbol        string  `json:"symbol"`
+	SymbolKind    string  `json:"symbol_kind"`
+	ParentSymbol  string  `json:"parent_symbol,omitempty"`
+	ChunkIndex    int     `json:"chunk_index"`
+	ChunkStrategy string  `json:"chunk_strategy"`
+	ChunkText     string  `json:"chunk_text"`
+	StartLine     int     `json:"start_line"`
+	EndLine       int     `json:"end_line"`
+	Distance      float64 `json:"distance"`
 }
 
 type ScannedFile struct {

@@ -32,6 +32,9 @@ export function SourceChunkCard({ chunk, index }: Props) {
         <span className="min-w-0 flex-1 truncate text-xs font-bold text-zinc-300">
           <span className="text-zinc-500">[{index + 1}]</span>{" "}
           {chunk.file_path}
+          {chunk.symbol && (
+            <span className="text-zinc-400"> / {chunk.symbol}</span>
+          )}
           <span className="text-zinc-600">
             :{chunk.start_line}-{chunk.end_line}
           </span>

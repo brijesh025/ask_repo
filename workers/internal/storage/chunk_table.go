@@ -24,12 +24,18 @@ func (s *Storage) ReplaceChunksForFile(ctx context.Context, fileID int64, chunks
 			repository_id,
 			file_id,
 			file_path,
+			language,
+			symbol,
+			symbol_kind,
+			parent_symbol,
+			chunk_index,
+			chunk_strategy,
 			chunk_text,
 			start_line,
 			end_line,
 			embedding
 		)
-		VALUES ($1, $2, $3, $4, $5, $6, $7)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
 	`
 
 	for _, chunk := range chunks {
@@ -44,6 +50,12 @@ func (s *Storage) ReplaceChunksForFile(ctx context.Context, fileID int64, chunks
 			chunk.RepositoryID,
 			chunk.FileID,
 			chunk.FilePath,
+			chunk.Language,
+			chunk.Symbol,
+			chunk.SymbolKind,
+			chunk.ParentSymbol,
+			chunk.ChunkIndex,
+			chunk.ChunkStrategy,
 			chunk.ChunkText,
 			chunk.StartLine,
 			chunk.EndLine,

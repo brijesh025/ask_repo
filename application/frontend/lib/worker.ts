@@ -13,6 +13,8 @@ export type IngestResponse = {
   files: number;
   chunks: number;
   embeddings: number;
+  ast_chunks: number;
+  fallback_chunks: number;
   local_path: string;
   cloned: boolean;
   sample_files: string[];
@@ -24,6 +26,12 @@ export type RetrievedChunk = {
   id: number;
   repository_id: number;
   file_path: string;
+  language: string;
+  symbol: string;
+  symbol_kind: string;
+  parent_symbol?: string;
+  chunk_index: number;
+  chunk_strategy: string;
   chunk_text: string;
   start_line: number;
   end_line: number;

@@ -35,9 +35,16 @@ func (s *Storage) EnsureSchema(ctx context.Context) error {
 			embedding vector(768),
 			created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 		)`,
+		`ALTER TABLE code_chunks ADD COLUMN IF NOT EXISTS language TEXT NOT NULL DEFAULT ''`,
+		`ALTER TABLE code_chunks ADD COLUMN IF NOT EXISTS symbol TEXT NOT NULL DEFAULT ''`,
+		`ALTER TABLE code_chunks ADD COLUMN IF NOT EXISTS symbol_kind TEXT NOT NULL DEFAULT ''`,
+		`ALTER TABLE code_chunks ADD COLUMN IF NOT EXISTS parent_symbol TEXT NOT NULL DEFAULT ''`,
+		`ALTER TABLE code_chunks ADD COLUMN IF NOT EXISTS chunk_index INTEGER NOT NULL DEFAULT 0`,
+		`ALTER TABLE code_chunks ADD COLUMN IF NOT EXISTS chunk_strategy TEXT NOT NULL DEFAULT 'fallback'`,
 		`CREATE INDEX IF NOT EXISTS repo_files_repository_id_idx ON repo_files(repository_id)`,
 		`CREATE INDEX IF NOT EXISTS code_chunks_repository_id_idx ON code_chunks(repository_id)`,
 		`CREATE INDEX IF NOT EXISTS code_chunks_file_id_idx ON code_chunks(file_id)`,
+		`CREATE INDEX IF NOT EXISTS code_chunks_symbol_idx ON code_chunks(repository_id, symbol)`,
 	}
 
 	for _, statement := range statements {
